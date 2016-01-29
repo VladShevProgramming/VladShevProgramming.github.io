@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<link rel="stylesheet" href='../style.css'>
+		<title>About AES</title>
+		<h1>About AES</h1>
+	</head>
+	<body>
+		<ul>
+			<li><a href='../index.html' class="navi">Home</a></li>
+			<li><a href='../faq/index.html' class="navi">FAQ</a></li>
+			<li><a href='../download/index.html' class="navi">Dowload AES</a></li>
+			<li><a href='../download_source/index.html' class="navi">Download AES Source Code</a></li>
+			<li></li>
+		</ul>
+		<p></p>
+		<h2>AES download package</h2>
+		<p>The download package of AES consists of several files:</p>
+		<div id="ul-list">
+			<p>ED.exe</p>
+			<p>AES.exe</p>
+			<p>HSED.exe</p>
+			<p>ED_B.exe</p>
+			<p>init.aesp</p>
+			<p>InitWritter.exe</p>
+			<p>hs_init.aesp</p>
+			<p>MSVCR100.dll</p>
+			<p>state.txt</p>
+			<p>versions.txt</p>
+		</div>
+		<p>ED.exe is the standard AES encoding program. Run this, after setting up init.pfap (see below)</p>
+		<p>AES.exe is the high-security version of ED.exe. It might take a bit longer to run as it essntially
+		encodes the file twice: the first time with random passwords (that are then appended) to the file, and
+		then with the passwords you specified. It is far stronger and is on par with bank and military encryptions,
+		but is more resource-intensive.</p>
+		<p>HSED.exe is a system file used by AES.exe - not a good idea to run it on its own.</p>
+		<p>ED_B.exe is a brand-new update - it can encode binary files. It is standalone and is incompatible with
+		ED.exe, AES.exe and HSED.exe as it uses a completely different encoding algorithm.</p>
+		<p>init.aesp is the initialization file used by both AES.exe and ED.exe - if you know how to, you can write
+		it by hand (see my tutorial <a href='tutorial/index.html'>here</a>); if not, use InitWritter.exe (see below).</p>
+		<p>InitWritter.exe is a program that will help you write init.aesp - this is the easier, though slower, way.</p>
+		<p>hs_init.aesp is the initialization file used by HSED.exe - don't change it, AES.exe will write it for you.</p>
+		<p>MSVCR100.dll is a Windows application extention needed to run AES.exe, ED.exe, HSED.exe and InitWritter.exe and ED_B.exe.</p>
+		<p>state.txt is a file used by AES.exe and HSED.exe to exchange information - when neither of them is running,
+		it should be empty.</p>
+		<p>versions.txt is the file containing the version of the AES - as tempting as it is, don't change
+		it to something like 9001 as the versions are actually used by the programs.</p>
+
+		<h2>Source Code</h2>
+		<p>AES is currently open source - it was made in Python 3.4.3.4 but should be compatible with any version of
+		Python 3. No 3rd-party modules are used in the code. Download the source <a href='../download_source/index.html'>here</a>.</p>
+
+		<h2>Tested platforms</h2>
+		<p>All of the programs included were tested on Windows 7, 8 and 10. No compatibility issues were found. AES might run on Ubuntu via WINE - no guarantee give, though.</p>
+
+		<h2>Supported file formats</h2>
+		<p>AES currently supports any file format. Has been tested of .exe , .zip , .png , .jpg , .doc and .txt files.</p>
+
+		<h2>Contact Information</h2>
+		<p>For any bugs/suggestions/comments/questions please email me to vladshev8@gmail.com</p>
+		<a href="http://www.easycounter.com/"><img src="http://www.easycounter.com/counter.php?vladshev"border="0" alt="Web Counter"></a>
+	</body>
+</html>

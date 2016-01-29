@@ -1,0 +1,104 @@
+<html>
+	<head>
+		<link rel="stylesheet" href='../../style.css'>
+		<title>Writting init.aesp by hand</title>
+		<h1>Writting init.aesp by hand</h1>
+	</head>
+	<body>
+		<ul>
+			<li><a href='../../index.html' class="navi">Home</a></li>
+			<li><a href='../../faq/index.html' class="navi">FAQ</a></li>
+			<li><a href='../../download/index.html' class="navi">Dowload AES</a></li>
+			<li><a href='../../download_source/index.html' class="navi">Download AES Source Code</a></li>
+		</ul>
+		<h2>For AES.exe, HSED.exe and ED.exe:</h2>
+		<p>The init.aesp file contains all of the changable settings used by AES.exe
+		and ED.exe. In its format, it is quite similar to a .ini file, however there
+		are some major differences.</p>
+		
+		<p>Note: The lines/sections in the init.aesp file can come in any order and,
+		if not found, will be set to their defaults (though some lines, of course.
+		are necessary). Making an (or setting a) erroneous line/value will not crash
+		the program, but will be ignored - so commenting is easy.</p>
+
+		<p>The init.aesp file consists of sections and lines: sections are in the format
+		of "[SectionName]" and lines are in the format of "setting=value" (Ignore the
+		quotation marks). They all are case-sensitive and space-sensitive.</p>
+
+		<p>The general format is as follows (double quotes mean string value, int means
+		integer value, bool means boolean(true/false)).</p>
+
+		<div id="ul-list">
+			<p>[Settings]</p>
+			<p>input="path"</p>
+			<p>output="path"</p>
+			<p>chk_output="path"</p>
+			<p>keys=["password1","password2","password3"]</p>
+			<p>numKeys=[int,int,int]</p>
+			<p>sequence="e/d"</p>
+			<p>[Debug]</p>
+			<p>printInput=bool</p>
+			<p>printOutput=bool</p>
+			<p>printProg=bool</p>
+			<p>[P_Input]</p>
+			<p>printKeys="all"/[int,int,int]</p>
+			<p>printNumKeys="all"/[int,int,int]</p>
+			<p>printInputFrom=bool</p>
+			<p>printOutputTo=bool</p>
+			<p>printChkOutputTo=bool</p>
+			<p>[P_Output]</p>
+			<p>printOutputedTo=bool</p>
+			<p>printChkOutputedTo=bool</p>
+			<p>printInitSize=bool</p>
+			<p>printFinalSize=bool</p>
+			<p>printCompRatio=bool</p>
+			<p>[Adv]</p>
+			<p>encLtrs=""</p>
+			<p>decLtrs=""</p>
+			<p>chkLtrs=""</p>
+		</div>
+		<p>Here's what they mean:</p>
+		<div id="ul-list2">
+			<p>[Settings] - the settings section of init.aesp</p>
+			<p>input - the path of the file to be encrypted/decrypted</p>
+			<p>output - the path where the encrypted/decrypted file is to go</p>
+			<p>chk_output - the path where the check-encrypted file is to go (only in ED.exe)</p>
+			<p>keys - any number of string keys, in the above format</p>
+			<p>numKeys - the same number as the above keys of positive non-zero integers, in the above format</p>
+			<p>sequence - e or d (encryption or decryption)</p>
+			<p>[Debug] - the dubg section of init.aesp - not necessary</p>
+			<p>printInput - whether or not to print the information (specified in the print-input section of init.aesp) before the program runs</p>
+			<p>printOutput - whether or not to print the information (specified in the print-output section of init.aesp) before the program runs</p>
+			<p>printProg - whether or not to print the progress while the program is running</p>
+			<p>[P_Input] - the print-input section of init.aesp</p>
+			<p>printKeys - what keys to print before the program runs - either all or several, specified by list-indexes</p>
+			<p>printNumKeys - what combination keys to print before the program runs - either all or several, specified by list-indexes</p>
+			<p>printInputFrom - whether ot not to print the initial file's location before the program runs</p>
+			<p>printOutputTo - whether ot not to print the final file's location before the program runs</p>
+			<p>printChkOutputTo - whether or not to print the check-enrypted file's location before the program runs (only in ED.exe)</p>
+			<p>[P_Output] - the print-output section of init.aesp</p>
+			<p>printOutputedTo - whether or not to print the final file's location after the program runs</p>
+			<p>printChkOutputedTo - whether or not to print the check-encrypted file's location after the program runs (only in ED.exe)</p>
+			<p>printInitSize - whether or not to print the initial file's size after the program runs</p>
+			<p>printFinalSize - whether or not to print the final file's size after the program runs</p>
+			<p>printCompRatio - whether or not to print the compression ratio of the sizes between the initial abd final files (derived by final/initial)</p>
+			<p>[Adv] - the advanced section of init.aesp</p>
+			<p>encLtrs - the type of file made after encryption</p>
+			<p>decLtrs - the type of file made after decryption</p>
+			<p>chkLtrs - the type of file made after check-encryption (only in ED.exe)</p>
+		</div>
+		<p>The hs_init.aesp has a very similar format wih the exception of the debug, print-input and print-output sections.</p>
+		<p></p>
+		<h2>For ED_B.exe:</h2>
+		<p>As ED_B.exe uses the same initialization file as AES.exe, HSED.exe and ED.exe yet uses a completely different encoding
+		algorithim, there are some differences:</p>
+		<div id="ul-list3">
+			<p>- there is a new field - Settings/passEnc="" . This is the optional password-encoding (only in 1.0.2 and up) used to encode the password from a string into bytes. Working encodings are: utf-8, utf-16, utf-32, utf-32-le, utf-32-be, ascii, ansi and latin-1. Others may work, but not guaranteed - therefore not included in InitWritter.exe</p>
+			<p>- the Settings/keys portion has a different format. Use keys="[password]" as ED_B.exe uses only one password.</p>
+			<p>- the Settings/numKeys is pointless as ED_B.exe does not use combination indexes.</p>
+			<p>- as ED_B.exe only uses one password, for the P_Input/printKeys use printKeys="all" - strange things may happen if you don't.</p>
+			<p>- of course, P_input/printNumKeys is pointless.</p>
+		</div>
+		<a href="http://www.easycounter.com/"><img src="http://www.easycounter.com/counter.php?vladshev"border="0" alt="Web Counter"></a>
+	</body>
+</html>

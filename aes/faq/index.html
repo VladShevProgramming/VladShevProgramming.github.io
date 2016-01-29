@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<link rel="stylesheet" href='../style.css'>
+		<title>FAQ</title>
+		<h1>FAQ</h1>
+	</head>
+	<body>
+		<ul>
+			<li><a href='../index.html' class="navi">Home</a></li>
+			<li><a href='../whatisaes/index.html' class="navi">About</a></li>
+			<li><a href='../download/index.html' class="navi">Download AES</a></li>
+			<li><a href='../download_source/index.html' class="navi">Download AES Source Code</a></li>
+		</ul>
+		<p>Q: I did everything as per instructions, but the program keeps on crashing. Why?</p>
+		<p>A: Because of the way the algorithim works, some combinations of passwords, number-passwords(combination indexes) and the text are erroneous. Just change your password(s) and it should work. If you're using ED_B.exe and that happens, please contact me at vladshev8@gmail.com</p>
+		<p>Q: I launched ED_B.exe and it wouldn't do anything. What's wrong?</p>
+		<p>A: Because of the way ED_B.exe works it is far more resourse-intensive and takes a while. Some things like long videos or HD photos can take more than an hour... Making the password shorter does make the program run quicker. 3-4 charters is a completely viable length.</p>
+		<p>Q: If I'm going to encrypt a text file, will ED_B.exe work?</p>
+		<p>A: Yes, however using AES.exe or ED.exe will work better. ED_B.exe does, undoubtebly, take faaar longer and yet gives roughly the same level of encryption as AES.exe or ED.exe</p>
+		<p>Q: Is there a mac/linux version of AES?</p>
+		<p>A: No, at the momment there isn't - though it will come in a future update. You might hav luck running AES on linux through WINE - no guarantee, though.</p>
+		<p>Q: What do AES, ED, HSED, ED_B and AESP stand for???</p>
+		<p>A: Sorry for the strange names, but they stand for something that (surprise!) makes sense.</p>
+		<div id="ul-list">
+			<p>AES - ASCII encryption system.</p>
+			<p>ED - Encryption/decryption. (Rather unoriginal, I know...)</p>
+			<p>HSED - High-security encryption/decryption.</p>
+			<p>ED_B - Encryption/decryption - bytes. (If i started giving the programs names like that, might as well follow through.)</p>
+			<p>AESP - ASCII encryption system properties (file). (By the way, I have considered calling it ASCIIEDSPF before.)</p>
+			<p>(If you thinks these names are strange (they are), what do you think of my initial name - TnB_asciiEDnhs_encUTF32le_1.0.a.py)</p>
+		</div>
+		<p>Q: How strong is AES?</p>
+		<p>A: Let's do some math. The way the algorithim works is that every combination of passwords and number-passwords has different results, and as there can be any number of passwords there are infinite combinations.
+		But, let's say, your using standard AES encryption with 3 8-character long passwords - as there are up to 65536 possible UTF-8 charcters that would mean that there 5.19 * 10^33 different 8-character passwords, and
+		combining them all, there is 1.40*10^123 combinations for the given parameters - so if someone was trying to decrypt your file (knowing that you used 3 8-character passwords) by trying every single combination...
+		that would take them only 1.48*10^118 years to finish,  which is far, far longer than our universe will last. And that is with a standard encryption - the high-security one is far stronger.</p>
+		<a href="http://www.easycounter.com/"><img src="http://www.easycounter.com/counter.php?vladshev"border="0" alt="Web Counter"></a>
+	</body>
+</html>
