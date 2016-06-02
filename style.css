@@ -60,6 +60,12 @@ p {
 	margin: 10px;
 }
 
+p.list {
+	line-height: 0.7em;
+	font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+	margin: 20px;
+}
+
 h1 {
     color: #ffc;
     background-color: #900;
