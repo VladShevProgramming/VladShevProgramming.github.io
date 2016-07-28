@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<link rel="stylesheet" href='../style.css'>
+		<title>Computer Viruses</title>
+		<h1>Computer Viruses</h1>
+	</head>
+	<body>
+		<h2>The Project</h2>
+		<p>I have been doing a research project about computer viruses and the most effecient way of autorunning and
+		hiding them. To do this, I have built several viruses and platforms and done a lot of research.</p>
+		<h2>My Findings</h2>
+		<p>Throught the course of the project, I realized:</p>
+		<div id="ul-list">
+			<p>It is safer to split the virus up into several parts,</p>
+			<p>It is better to back up those parts independently,</p>
+			<p>It is a good idea to make some "function programs",</p>
+			<p>It is a good idea to not make the virus autorun and instead bundle it with something,</p>
+			<p>It is better to have the virus running in several paraller processes at the same time.</p>
+		</div>
+		<p>And so, the following chart could be useful:</p>
+		<p>Processes:</p>
+		<p>main	(the 'commanding center' of the whole program)</p>
+		<p>void	(there will be always a set number of these, let's say, 5. They will always test to see how many</p>
+		<p>	 exsist and, if one is killed, will start it up again. If 'main' is killed, they will start it up</p>
+		<p>	 again as well).</p>
+		<p>redt	(a registry editing function-program that will be called up by main when approaching reboot. There</p>
+		<p>	 will be as many of these as there are necessary keys in the windows registry).</p>
+		<p></p>
+		<p>Location:</p>
+		<p>main, void, regt, and all their respective DLLs and other python libraries will all be held in the same folder,</p>
+		<p>probably, in Program Files. (AppData is easier to get into but vulnerable to things like CCleaner).</p>
+		<h2>Data</h2>
+		<p>I have made a simple virus and then did a virus and PUP (Potentially Unwanted Programs) scan on the following:
+		<div id="ul-list2">
+			<p>EEK (Emsisoft Emergency Kit)</p>
+			<p>Malware Bytes</p>
+			<p>Dr. Web</p>
+			<p>CCleaner</p>
+			<p>Windows Security Essentials</p>
+			<p>Windows Defender</p>
+		</div>
+		<p>Out of all of the above, only EEK found the virus as a PUP - however, could not delete it.</p>
+	</body>
+</html>
