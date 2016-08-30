@@ -1,0 +1,69 @@
+[Pre-Init]
+#This is a comment
+#Always start the mod with [Pre-Init]
+#Everything before that will be ignored
+#The file name of the mod should be:
+#Name-ModVersion-LoXVersion.loxmod
+#For example:
+#Hardcore-1.0-1.4.loxmod
+#Means the mod is called 'Hardcore', it's version 1.0 for LoX 1.4
+#You can call the mod anything you want and ignore the above rules - it will still work.
+#However, error tracebacks will be a lot more confusing.
+
+#To change enemy stats, use
+#EnemyName.field = value
+#Ex:
+
+Orc.fire_rate = 25
+
+#Refer to the source code for exact names of enemies and fields
+
+
+
+#To change the stats of a staff, use:
+#staff.element.tier.field = value
+#Ex:
+
+staff.fire.2.dmg = 3
+
+#elements include fire, ice, lightning, dark_arts
+#fields include dmg, prc, rof
+
+#To change the stats of the tier 6 staff, use:
+#staff.t6.0.field = value
+#Ex:
+
+staff.t6.0.prc = 3
+
+#To change to cost of a staff, use:
+#staff.tier = value
+#Ex:
+
+staff.5 = 15000
+
+
+
+#To change the stats of a robe, use:
+#robe.tier.field = value
+#Ex:
+
+robe.6.hp = 350
+
+#fields include hp, mp and cost
+
+
+
+#To change the stats of a rune, use:
+#rune.element.tier.field = value
+#Ex:
+
+rune.fire.1.dmg = 40
+
+#elements include fire, ice, lightning, dark_arts
+#fields include dmg, prc, drn, mp
+
+#To change the cost of a rune, use:
+#rune.tier = value
+#Ex:
+
+rune.1 = 50

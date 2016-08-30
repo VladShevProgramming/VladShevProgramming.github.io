@@ -1,0 +1,83 @@
+[Pre-Init]
+staff.fire.1.dmg = 2
+staff.ice.1.dmg = 2
+staff.lightning.1.dmg = 2
+staff.dark_arts.1.dmg = 2
+
+staff.fire.2.dmg = 4
+staff.ice.2.dmg = 2
+staff.lightning.2.dmg = 2
+staff.dark_arts.2.dmg = 4
+
+staff.fire.3.dmg = 6
+staff.ice.3.dmg = 4
+staff.lightning.3.dmg = 4
+staff.dark_arts.3.dmg = 4
+
+staff.fire.4.dmg = 8
+staff.ice.4.dmg = 4
+staff.lightning.4.dmg = 4
+staff.dark_arts.4.dmg = 6
+
+staff.fire.1.dmg = 10
+staff.ice.1.dmg = 8
+staff.lightning.1.dmg = 6
+staff.dark_arts.1.dmg = 8
+
+staff.t6.0.dmg = 10
+
+staff.2 = 250
+staff.3 = 1500
+staff.4 = 4000
+staff.5 = 15000
+staff.6 = 50000
+
+robe.1.hp = 20
+robe.1.mp = 20
+robe.1.cost = 25
+
+robe.2.hp = 40
+robe.2.mp = 50
+robe.2.cost = 75
+
+robe.3.hp = 60
+robe.3.mp = 80
+robe.3.cost = 250
+
+robe.4.hp = 120
+robe.4.mp = 200
+robe.4.cost = 1000
+
+robe.5.hp = 200
+robe.5.mp = 300
+robe.5.cost = 2500
+
+robe.6.hp = 350
+robe.6.mp = 500
+robe.6.cost = 6000
+
+robe.7.hp = 600
+robe.7.mp = 1000
+robe.7.cost = 17500
+
+rune.fire.1.dmg = 40
+rune.ice.1.dmg = 10
+rune.lightning.1.dmg = 6
+rune.dark_arts.1.dmg = 10
+rune.dark_arts.1.drn = 10
+
+rune.fire.2.dmg = 100
+rune.ice.2.dmg = 30
+rune.lightning.2.dmg = 20
+rune.dark_arts.2.dmg = 30
+rune.dark_arts.2.drn = 30
+
+rune.fire.3.dmg = 300
+rune.ice.3.dmg = 80
+rune.lightning.3.dmg = 80
+rune.dark_arts.3.dmg = 80
+rune.dark_arts.3.drn = 80
+
+rune.1 = 50
+rune.2 = 1000
+rune.3 = 20000

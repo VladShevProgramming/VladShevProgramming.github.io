@@ -1,0 +1,38 @@
+[Pre-Init]
+
+Cyclops.ATK = 3
+Cyclops.health = 125
+Cyclops.bullet_speed = 10
+Cyclops.fire_rate = 15
+
+CyclopsTurret.ATK = 4
+CyclopsTurret.bullet_speed = 5
+CyclopsTurret.bullet_life = 200
+CyclopsTurret.fire_rate = 30
+
+Skull.ATK = 0
+Skull.health = 200
+Skull.speed = 7
+Skull.bullet_speed = 4
+Skull.fire_rate = 30
+
+DesertWormHead.ATK = 7
+DesertWormHead.health = 2250
+DesertWormHead.bullet_speed = 8
+DesertWormHead.bullet_life = 60
+DesertWormHead.fire_rate = 15
+
+FireDragon.ATK = 15
+FireDragon.health = 7500
+FireDragon.bullet_speed = 10
+FireDragon.fire_rate = 30
+FireDragon.special_bullet_speed = 3
+FireDragon.special_bullet_life = 300
+FireDragon.special_rate = 300
+FireDragon.special_rate_rate = 300
+
+DragonFireball.ATK = 10
+DragonFireball.bullet_speed = 5
+DragonFireball.bullet_life = 15 200
+DragonFireball.fire_rate = 25
+DragonFireball.fire_rate_rate = 25

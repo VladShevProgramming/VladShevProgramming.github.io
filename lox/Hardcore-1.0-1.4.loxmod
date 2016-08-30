@@ -1,0 +1,72 @@
+[Pre-Init]
+
+Goblin.ATK = 3
+Goblin.fire_rate = 30
+Goblin.agro_range = 500
+
+Orc.ATK = 7
+Orc.bullet_speed = 10
+Orc.bullet_life = 20
+Orc.fire_rate = 25
+Orc.agro_range = 600
+
+DarkWizard.ATK = 5
+DarkWizard.bullet_speed = 12
+
+Cyclops.ATK = 6
+Cyclops.health = 250
+Cyclops.bullet_speed = 20
+Cyclops.fire_rate = 8
+
+CyclopsTurret.ATK = 8
+CyclopsTurret.bullet_speed = 15
+CyclopsTurret.fire_rate = 15
+
+Skeleton.ATK = 3
+Skeleton.health = 20
+Skeleton.bullet_speed = 10
+Skeleton.bullet_life = 20
+Skeleton.fire_rate = 35
+Skeleton.agro_range = 500
+
+SkeletonKnight.ATK = 10
+SkeletonKnight.speed = 3
+SkeletonKnight.bullet_speed = 8
+SkeletonKnight.bullet_life = 30
+SkeletonKnight.fire_rate = 35
+SkeletonKnight.agro_range = 600
+
+Necromancer.speed = 2
+Necromancer.fire_rate = 60
+Necromancer.fire_range = 1000
+Necromancer.agro_range = 600
+
+Skull.ATK = 10
+Skull.speed = 12
+Skull.bullet_speed = 7
+Skull.bullet_life = 70
+Skull.fire_rate = 15
+
+SandWraith.health = 100
+
+AngryCactus.ATK = 10
+AngryCactus.health = 100
+AngryCactus.fire_rate = 30
+AngryCactus.agro_range = 600
+
+SandSnake.ATK = 7
+SandSnake.health = 35
+SandSnake.fire_rate = 15
+
+SandSnakeNest.health = 300
+SandSnakeNest.fire_rate = 80
+SandSnakeNest.fire_range = 1000
+
+SandPit.ATK = 10
+
+ShearBackBeetle.ATK = 40
+ShearBackBeetle.health = 250
+ShearBackBeetle.speed = 4
+
+LivingBomb.ATK = 20
+LivingBomb.speed = 4
