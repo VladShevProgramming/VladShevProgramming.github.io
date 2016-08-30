@@ -140,7 +140,131 @@
 				<p><a href='EasierBosses-1.0-1.4.loxmod' download>EasierBosses v1.0 for LoX 1.4 . Makes the first 2 bosses slightly easier, and the others a lot easier. Final boss is then beatable without the best equipment.</a></p>
 			</div>
 		<h2 id="changelog">Changelog</h2>
-			<p>0.5</p>
+			<p>1.4
+			<p>-Made desertworm bullets 1.5 times slower
+			<p>1.3.6
+			<p>-Fixed the shot mechanic for enemies
+			<p>1.3.5
+			<p>-Fixed the shot mechanic for the player
+			<p>1.3.4
+			<p>-Made Sandworm do 0 damage and have a fire rate of 12 instead of 10
+			<p>-Added checkpoint mechanic (level.loxd)
+			<p>1.3.3
+			<p>-Added mod suppot for staffs using 'staff.element.tier.field = value' where field is dmg, rof or prc. For t6 staff, use 'staff.t6.0.field = value'
+			<p>-Added 'staff.tier = cost' field
+			<p>-Added 'robe.tier.field = cost' field
+			<p>-Added 'rune.element.tier.field = value' field
+			<p>-Added 'rune.tier = cost' field
+			<p>-Fixed game crashing when player presses play without having an element
+			<p>1.3.2
+			<p>-Replaced pygame.Rect.colliderect() function with custom function rectsCollide() for player shots
+			<p>-Fixed end-game backgrounds occuring in first biome when going back with 'lvl' command
+			<p>1.3.1
+			<p>-Added basic mod support
+			<p>-All mods are .loxmod files
+			<p>-Support only the 'Pre-Init' method
+			<p>-Only modification is 'Class.field = value' for enemies
+			<p>1.3/1.2.10
+			<p>-Added the fire dragon
+			<p>-When the level command is used the game pauses automatically
+			<p>1.2.9
+			<p>-Added wasteland biome
+			<p>-Added ShearBackBeetle
+			<p>-Added Living bomb
+			<p>-Added Living stone
+			<p>1.2.8
+			<p>-Added shop for runes
+			<p>-Buffed all enemies
+			<p>1.2.7
+			<p>-Complete fix for shop mechanic
+			<p>1.2.6
+			<p>-Fixed shop for robes
+			<p>1.2.5
+			<p>-Added shop for robes
+			<p>1.2.4
+			<p>-Merged 1.2.2 and 1.2.3
+			<p>-Money and XP dropped by enemies is saved and can be used in the shop
+			<p>1.2.3
+			<p>(Different path from 1.2.2)
+			<p>-Edited 'play' to work with different staffs, robes, and runes
+			<p>1.2.2
+			<p>-Added shop meachanic to the game for staffs
+			<p>1.2.1
+			<p>-Fixed fire spell crashing game by divide by 0 error
+ 			<p>-Added xp and money fields to enemies
+			<p>1.2/1.1.11
+			<p>-Added text showing burst spell charge level
+			<p>-Added icon showing availibilty of fire spell
+			<p>-Fixed the godmode hack-keys timer mechanic
+			<p>-Fixed desert worm death animation affecting the sand pits
+			<p>-Made explosions during the sand worm death animation faster and more numerous
+			<p>-Fixed colorkey on the desert rocks
+			<p>1.1.10
+			<p>-Fixed sand pits covering other enemies
+			<p>-Fixed walls not rendering in sand pit death animation
+			<p>-Fixed primary special attack (activated by pressing space) taking 6400 ticks to rechage instead of 400
+			<p>1.1.9
+			<p>-Added cyclops turret enemy
+			<p>-Dark Wizards now to x2 damage but have only half the health
+			<p>-Placed more sand pits in levels 14 and 15
+			<p>-Shots go through sand pits
+			<p>1.1.8
+			<p>-Added sand pit enemy
+			<p>-Made a death animation for the sand pit
+			<p>-Added a pause mechanic activated by presssing 'p'
+			<p>1.1.7
+			<p>-Replace pre-written ai for the desert worm with custom generated ai
+			<p>-Made the worm a total of 9 segments long
+			<p>1.1.6
+			<p>-Replace the 'for' loop in the desert worm ai with just an enemy_counter index
+			<p>1.1.5
+			<p>-Desert worm now succesfully moves with 2 segments
+			<p>-Player special attacks has been implemented
+			<p>-Console commands (including texture packs) are now available
+			<p>1.1.4
+			<p>-Desert worm can no longer move diagonally
+			<p>1.1.3
+			<p>-Player now shoots 4 times as fast
+			<p>-Enemies have 4 times the health
+			<p>-Orcs move twice as fast
+			<p>-Added orc on the top-left corner of level 3
+			<p>-Dark Wizards now shoot 10 times as fast
+			<p>-Cyclops does less damage and has smaller bullets, but now he shoots 3 streams
+			<p>-Added sand snake enemy
+			<p>-Added sand snake nest
+			<p>-Made a simple version of the desert worm boss
+			<p>1.1.2
+			<p>-Added desert biome
+			<p>-Added angry cactus enemy
+			<p>-Added sand wraith enemy
+			<p>1.1.1
+			<p>-Patched necromancers not letting the player finish the level
+			<p>-Patched skeleton trap spawning skeletons in walls
+			<p>1.1/1.0.5
+			<p>-Health fully regens after completing a level
+			<p>-Cleaned up code
+			<p>-Added icon (part of the title screen)
+			<p>1.0.4
+			<p>-Made a total of 10 underground levels
+			<p>-Added Skull boss
+			<p>-Fixed 'Sticky Walls' issue
+			<p>-Godmode can now be togged of
+			<p>-When in godmode, the HP text is red
+			<p>-Bullets with type 'explosive' now create an explosion for 50 ticks that deals 1 damage every tick
+			<p>1.0.3
+			<p>-Fixed cyclops particles. Far from intnded but still cool
+			<p>-Fixed pentagram colrkey via Gimp 2.0 'Color to alpha'
+			<p>1.0.2
+			<p>-added skeleton trap sound effect
+			<p>-cheange skeleton trap to spawning 20 skeletons
+			<p>1.0.1
+			<p>-remade cyclops and player sprites (credits to Adam)
+			<p>-added background (Willam)
+			<p>-added level 6/7 featuring underground biome
+			<p>-made intro skipable (space)
+			<p>-added skeleton knight
+			<p>-added skeleton trap
+			<p>1.0/0.5</p>
 			<p>-added basic menu</p>
 			<p>-added intro</p>
 			<p>-(5 total levels)</p>
