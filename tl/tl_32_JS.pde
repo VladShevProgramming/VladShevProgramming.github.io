@@ -681,19 +681,37 @@ class MazeMaker {
     walk(int(random(w)), int(random(h)));
   }
   
+  class Int {
+    int x;
+    Int (int _x) {
+      x = _x;
+    }
+    
+    int get_int() {
+      return x;
+    }
+  }
+  
   void walk(int x, int y) {
     vis[y][x] = 1;
     int[][] d = {{x-1, y}, {x, y+1}, {x+1, y}, {x, y-1}};
-    IntList d_index = new IntList();
-    d_index.append(0);
-    d_index.append(1);
-    d_index.append(2);
-    d_index.append(3);
-    d_index.shuffle();
+    ArrayList<Int> d_index_1 = new ArrayList<Int>();
+    d_index_1.add(new Int(0));
+    d_index_1.add(new Int(1));
+    d_index_1.add(new Int(2));
+    d_index_1.add(new Int(3));
     
-    for (int i : d_index) {
-      int xx = constrain(d[i][0], 0, vis[0].length-1);
-      int yy = constrain(d[i][1], 0, vis.length-1);
+    ArrayList<Int> d_index_2 = new ArrayList<Int>();
+    for (int i = 0; i < d_index_1.size(); i++) {
+      int a = int(random(d_index_1.size()));
+      d_index_2.add(d_index_1.get(a));
+      d_index_1.remove(a);
+    }
+    
+    
+    for (Int i : d_index_2) {
+      int xx = constrain(d[i.get_int()][0], 0, vis[0].length-1);
+      int yy = constrain(d[i.get_int()][1], 0, vis.length-1);
       if (vis[yy][xx] == 1) {
         continue;
       }
