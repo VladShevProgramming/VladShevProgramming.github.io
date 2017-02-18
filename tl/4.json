@@ -1,0 +1,9 @@
+{
+  "red": 250,
+  "green": 239,
+  "controls": "ylkji",
+  "blue": 29,
+  "name": "DerWilli"
+, "img": "willi_tank.png", "low_red": 250,
+ "low_green": 239, "low_blue": 29, "high_red": 255,
+ "high_green": 177, "high_blue": 30, "color_speed": 500}

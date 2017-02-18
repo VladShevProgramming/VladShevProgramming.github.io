@@ -1,0 +1,7 @@
+{
+  "red": 13,
+  "green": 183,
+  "controls": "mouse",
+  "blue": 255,
+  "name": "Vlad", "img": "vlad_tank.png", "low_red": 81, "low_green": 203, "low_blue": 255, "high_red": 
+0, "high_green": 170, "high_blue": 242, "color_speed": 100}

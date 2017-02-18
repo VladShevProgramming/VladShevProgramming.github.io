@@ -1,0 +1,9 @@
+{
+  "red": 21,
+  "green": 81,
+  "controls": "75123",
+  "blue": 153,
+  "name": "AstroThunder"
+, "img": "tank.png", "low_red": 21,
+ "low_green": 81, "low_blue": 153, "high_red": 21,
+ "high_green": 81, "high_blue": 153, "color_speed": 1}

@@ -1,0 +1,11 @@
+{
+  "red": 165,
+  "green": 0,
+  "controls": "`wasd",
+  "blue": 200,
+  "name": "Spencer", "img": "tank.png", "low_red": 165,
+  "low_green": 0,
+ "low_blue": 200
+, "high_red": 165,
+  "high_green": 0,
+ "high_blue": 200, "color_speed": 1}
