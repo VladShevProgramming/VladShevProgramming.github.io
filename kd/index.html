@@ -1,0 +1,584 @@
+<html>
+<head>
+<title>Kitty Dinners 0.5</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://static.codehs.com/gulp/1be21bf8577aa9f6c6fffd21c209031c2f907753/chs-js-lib/chs.js"></script>
+
+
+<style>
+canvas {
+    border: 1px solid black;
+    display: inline-block;
+    vertical-align: top;
+}
+
+pre {
+    border: 1px solid black;
+    display: inline-block;
+    width: 400px;
+    height: 500px;
+    background-color: #F5F5F5;
+}
+</style>
+
+</head>
+
+<body>
+<h1>Kitty Dinners 0.5</h1>
+
+
+
+<canvas
+width="400"
+height="500"
+class="codehs-editor-canvas"></canvas>
+<pre id="console"></pre>
+
+<script>
+window.onload = function() {
+
+    var WALL_Y_INC = 150;                                                //Add comments//
+var WALL_BREAKING_FUSE = 30;
+var G = 1;
+var CAT_ANIMATION_INTERVAL = 10;
+var CHANCE_OF_BREAKABLE_WALL = 0.2;
+var CHANCE_OF_ENEMY_PLATFORM = 0.05;
+var CHANCE_OF_SPRING_PLATFORM = 0.1;
+var DIN_SPAWN_CHANCE = 0.1;
+//=======================
+
+var state;
+var ap, dp;
+
+var menu_title_text, menu_play_text;
+var game_over_main_text, game_over_points_text, game_over_play_text, game_over_menu_text;
+
+var cat, cat_offset;
+var cat_img_1, cat_img_2, cat_img_jumping;
+var left_button, top_button, right_button;
+var cat_img_is_first_img;
+var cat_img_cooldown;
+var walls, highest_wall;
+var enemies, dins;
+var platform_img_1, background_img_1;
+var points_text, points, max_height;
+var cat_spawn_offset;
+
+//var mySong = new Audio("file:///C:/Users/18latkob.REGION10/Desktop/Globglogabgalab.mp3");
+//mySong.play();
+
+function start() {
+    init();
+    setTimer(update, 1);
+    keyDownMethod(keyPressed);
+    keyUpMethod(keyReleased);
+    mouseClickMethod(mouseClicked);
+}
+
+function init() {
+    state = "menu_init";
+    ap = false;
+    dp = false;
+    init_textures();
+    //mySong.play(); 
+    //mySong.loop = true;
+}
+
+function init_textures() {
+    cat_img_1 = new WebImage("http://vladshevprogramming.github.io/kd/cat1.png");
+    cat_img_2 = new WebImage("http://vladshevprogramming.github.io/kd/cat2.png");
+    cat_img_jumping = new WebImage("http://vladshevprogramming.github.io/kd/cat_jumping.png");
+    platform_img_1 = new WebImage("http://vladshevprogramming.github.io/kd/platform1.png");
+    background_img_1 = new WebImage("http://vladshevprogramming.github.io/kd/background1.png");
+    points_text = new Text("", "15pt Arial");
+    menu_title_text = new Text("Kitty Dinners", "30pt Arial");
+    menu_play_text = new Text("Play", "30pt Arial");
+    game_over_main_text = new Text("Game Over", "30pt Arial");
+    game_over_points_text = new Text("", "50pt Arial");
+    game_over_play_text = new Text("Play Again", "20pt Arial");
+    game_over_menu_text = new Text("Return to Menu", "20pt Arial");
+}
+
+function update() {
+    if (state == "menu_init") {
+        remove_game_over_sprites();
+        menu_title_text.setPosition(getWidth()/2-menu_title_text.getWidth()/2, getHeight()*0.25-menu_title_text.getHeight()/2);
+        add(menu_title_text);
+        menu_play_text.setPosition(getWidth()/2-menu_play_text.getWidth()/2, getHeight()*0.8-menu_play_text.getHeight()/2);
+        add(menu_play_text);
+        state = "menu";
+    } else if (state == "menu") {
+        
+    } else if (state == "play_init") {
+        remove(menu_title_text);
+        remove(menu_play_text);
+        remove_game_over_sprites();
+        add(background_img_1);
+        cat = {"img":null, "x":0, "y":0, "dx":0, "dy":0, "vx":0, "vy":0, "w":0, "h":0, "color":Color.blue, "falling_for":0, "on_spring":false, "init":cat_init};
+        cat_offset = {"x":0, "y":0};
+        cat.init(cat);
+        walls = [];
+        highest_wall = 1;
+        walls_init();
+        enemies = [];
+        dins = [];
+        points = 0;
+        max_height = 0;
+        add(points_text);
+        buttons_init();
+        state = "play";
+    } else if (state == "play") {
+        update_cat();
+        create_walls();
+        update_walls();
+        update_enemies();
+        update_other();
+    } else if (state == "game_over_init") {
+        remove_play_sprites();
+        game_over_main_text.setPosition(getWidth()/2-game_over_main_text.getWidth()/2, getHeight()*0.25-game_over_main_text.getHeight()/2);
+        add(game_over_main_text);
+        game_over_points_text.setText("Score: "+(points+max_height));
+        game_over_points_text.setPosition(getWidth()/2-game_over_points_text.getWidth()/2, getHeight()/2);
+        add(game_over_points_text);
+        game_over_play_text.setPosition(getWidth()/2-game_over_play_text.getWidth()/2, getHeight()*0.75-game_over_play_text.getHeight()/2);
+        add(game_over_play_text);
+        game_over_menu_text.setPosition(getWidth()/2-game_over_menu_text.getWidth()/2, getHeight()*0.9-game_over_menu_text.getHeight()/2);
+        add(game_over_menu_text);
+        state = "game_over";
+    } else if (state == "game_over") {
+        
+    }
+}
+
+function remove_play_sprites() {
+    remove(background_img_1);
+    remove(cat.img);
+    for (var i = 0; i < walls.length; i++) {
+        remove(walls[i].img);
+    }
+    for (var i = 0; i < enemies.length; i++) {
+        remove(enemies[i].img);
+    }
+    for (var i = 0; i < dins.length; i++) {
+        remove(dins[i].img);
+    }
+    remove(points_text);
+}
+
+function remove_game_over_sprites() {
+    remove(game_over_main_text);
+    remove(game_over_points_text);
+    remove(game_over_play_text);
+    remove(game_over_menu_text);
+}
+
+function update_cat() {
+    move_cat();
+    display_cat();
+}
+
+function move_cat() {
+    cat.vy += G;
+    cat.x += cat.vx;
+    cat.y += cat.vy;
+    cat.falling_for++;
+    var cwall = check_wall_collisions(cat, walls);
+    if (cwall != null && cat.vy >= 0) {
+        cat.x -= cat.vx;
+        cat.y -= cat.vy;
+        cat.vx = 0;
+        cat.vy = 0;
+        cat.falling_for = 0;
+        cat.on_spring = cwall.is_spring;
+    }
+    if (cat.falling_for >= 50 || check_enemy_collisions(cat, enemies)) {
+        state = "game_over_init";
+    }
+    if (ap) {
+        cat.x -= 3;
+    }
+    if (dp) {
+        cat.x += 3;
+    }
+    if (check_wall_collisions(cat, walls)) {
+        if (ap) {
+            cat.x += 3;
+        }
+        if (dp) {
+            cat.x -= 3;
+        }
+    }
+    if (cat.x != constrain(cat.x, cat.w/2-getWidth()/2, getWidth()/2-cat.w/2)) {
+        cat.x = constrain(cat.x, cat.h/2-getWidth()/2, getWidth()/2-cat.h/2);
+    }
+    var cdin = check_din_collisions(cat, dins);
+    if (cdin != null) {
+        points += 10;
+        destroy_din(cdin);
+    }
+}
+
+function display_cat() {
+    if (cat_img_cooldown <= 0) {
+        cat_img_is_first_img = !cat_img_is_first_img;
+        if (cat_img_is_first_img) {
+            setCatImg(cat_img_1);
+        } else {
+            setCatImg(cat_img_2);
+        }
+        cat_img_cooldown = CAT_ANIMATION_INTERVAL;
+    } else {
+        cat_img_cooldown--;
+    }
+    if (Math.abs(cat.vy) != 0 && cat.falling_for != 0) {
+        setCatImg(cat_img_jumping);
+    }
+    cat.dx = cat.x+getWidth()/2;
+    cat.dy = getHeight()/2;
+    cat.img.setPosition(cat.dx-cat.w/2, cat.dy-cat.h/2);
+    cat_offset.x = getWidth()/2-cat.x;
+    cat_offset.y = getHeight()/2-cat.y;
+}
+
+function setCatImg(img) {
+    remove(cat.img);
+    img.setPosition(cat.img.getX(), cat.img.getY());
+    cat.img = img;
+    add(cat.img);
+}
+
+function create_walls() {
+    while (cat.y-WALL_Y_INC*5 <= -highest_wall*WALL_Y_INC) {
+        if (Randomizer.nextFloat(0, 1) <= CHANCE_OF_ENEMY_PLATFORM) {
+            var wall = {"img":null, "x":0, "y":-highest_wall*WALL_Y_INC, "w":0, "h":0, "color":null, "broken":false, "counter":-1, "is_spring":false, "init":b_wall_init};
+            walls.push(wall.init(wall));
+        } else {
+            for (var i = 0; i < 2; i++) {
+                if (Randomizer.nextFloat(0, 1) <= CHANCE_OF_SPRING_PLATFORM) {
+                    wall = {"img":null, "x":0, "y":-highest_wall*WALL_Y_INC, "w":0, "h":0, "color":null, "broken":false, "counter":-1, "is_spring":true, "init":s_wall_init};
+                } else {
+                    wall = {"img":null, "x":0, "y":-highest_wall*WALL_Y_INC, "w":0, "h":0, "color":null, "broken":false, "counter":WALL_BREAKING_FUSE*get_wall_breakable(), "is_spring":false, "init":wall_init};
+                }
+                walls.push(wall.init(wall));
+            }
+        }
+        highest_wall++;
+    }
+}
+
+function update_walls() {
+    for (var i = 0; i < walls.length; i++) {
+        update_wall(walls[i]);
+    }
+}
+
+function update_wall(wall) {
+    wall.dx = wall.x+getWidth()/2;
+    wall.dy = wall.y+cat_offset.y;
+    wall.img.setPosition(wall.dx-wall.w/2, wall.dy-wall.h/2);
+    if (wall.counter == 0) {
+        wall.broken = true;
+        remove(wall.img);
+    } else if (wall.counter < WALL_BREAKING_FUSE) {
+        wall.counter--;
+    }
+}
+
+function update_enemies() {
+    for (var i = 0; i < enemies.length; i++) {
+        update_enemy(enemies[i]);
+    }
+}
+
+function update_enemy(enemy) {
+    enemy.x += enemy.vx;
+    if (enemy.x >= enemy.wall.x + enemy.wall.w/2 - enemy.w/2 || enemy.x <= enemy.wall.x - enemy.wall.w/2 + enemy.w/2) {
+        enemy.vx *= -1;
+    }
+    enemy.dx = enemy.x+getWidth()/2;
+    enemy.dy = enemy.y+cat_offset.y;
+    enemy.img.setPosition(enemy.dx-enemy.w/2, enemy.dy-enemy.h/2);
+}
+
+function update_other() {
+    for (var i = 0; i < dins.length; i++) {
+        update_din(dins[i]);
+    }
+    max_height = max(max_height, Math.round((-cat.y-cat.img.getHeight()/2-cat_spawn_offset)/150)*15);
+    points_text.setText("Points: "+(points+max_height));
+    points_text.setPosition(getWidth()*0.98-points_text.getWidth(), getHeight()*0.05);
+}
+
+function update_din(din) {
+    if (!din.used) {
+        din.dx = din.x+getWidth()/2;
+        din.dy = din.y+cat_offset.y;
+        din.img.setPosition(din.dx-din.w/2, din.dy-din.h/2);
+    }
+}
+
+function destroy_din(din) {
+    din.used = true;
+    remove(din.img);
+}
+
+function cat_init(cat) {
+    cat_img_is_first_img = true;
+    cat_img_cooldown = CAT_ANIMATION_INTERVAL;
+    cat.img = cat_img_1;
+    cat_spawn_offset = 11;
+    cat.w = 47;//cat.img.getWidth();
+    cat.h = 55;//cat.img.getHeight();
+    cat.x = 0;
+    cat.y = -cat.h/2-cat_spawn_offset;
+    add(cat.img);
+    return cat;
+}
+
+function walls_init() {
+    var gwall = {"img":null, "x":0, "y":0, "dx":0, "dy":0, "w":0, "h":0, "color":null, "broken":false, "counter":-1, "is_spring":false, "init":g_wall_init};
+    walls.push(gwall.init(gwall));
+}
+
+function wall_init(wall) {
+    wall.img = new WebImage("http://vladshevprogramming.github.io/kd/platform1.png");
+    wall.w = 60;
+    wall.h = 27;
+    wall.color = Color.grey;
+    wall.img.setColor(wall.color);
+    //var px = walls[walls.length-1].x;
+    //wall.x = constrain(px+Randomizer.nextFloat(-150, 150), wall.w/2-getWidth()/2, getWidth()/2-wall.w/2);
+    wall.x = walls[walls.length-1].x;
+    while (walls_collide(wall, walls[walls.length-1])) {
+        wall.x = Randomizer.nextFloat(wall.w/2-getWidth()/2, getWidth()/2-wall.w/2);
+    }
+    wall.img.setPosition(wall.x-wall.w/2, wall.y-wall.h/2);
+    if (walls[walls.length-1].y == wall.y && walls[walls.length-1].counter > 0) {
+        wall.counter = -WALL_BREAKING_FUSE;
+    }
+    add(wall.img);
+    
+    if (Randomizer.nextFloat(0, 1) <= DIN_SPAWN_CHANCE) {
+        var din = {"img":null, "x":wall.x, "y":wall.y-wall.h, "w":0, "h":0, "dx":0, "dy":0, "used":false, "init":din_init};
+        dins.push(din.init(din));
+    }
+    
+    return wall;
+}
+
+function b_wall_init(wall) {
+    wall.w = getWidth()-100;
+    wall.h = 20;
+    wall.img = new Rectangle(wall.w, wall.h);
+    wall.color = Color.green;
+    wall.img.setColor(wall.color);
+    wall.x = Randomizer.nextInt(-50, 50);
+    wall.img.setPosition(wall.x-wall.w/2, wall.y-wall.h/2);
+    add(wall.img);
+    
+    var enemy = {"img":null, "x":Randomizer.nextInt(wall.x-wall.w/3, wall.x+wall.w/3), "y":wall.y-wall.h/2-20, "w":0, "h":0, "dx":0, "dy":0, "wall":wall, "vx":Randomizer.nextInt(0,1)*2-1, "init":enemy_init};
+    enemies.push(enemy.init(enemy));
+    
+    return wall;
+}
+
+function s_wall_init(wall) {
+    wall.w = 60;
+    wall.h = 27;
+    wall.img = new Rectangle(wall.w, wall.h);
+    wall.color = Color.grey;
+    wall.img.setColor(wall.color);
+    wall.x = walls[walls.length-1].x;
+    while (walls_collide(wall, walls[walls.length-1])) {
+        wall.x = Randomizer.nextFloat(wall.w/2-getWidth()/2, getWidth()/2-wall.w/2);
+    }
+    wall.img.setPosition(wall.x-wall.w/2, wall.y-wall.h/2);
+    add(wall.img);
+    return wall;
+}
+
+function g_wall_init(wall) {
+    wall.w = getWidth();
+    wall.h = 20;
+    wall.img = new Rectangle(wall.w, wall.h);
+    wall.color = Color.grey;
+    wall.img.setColor(wall.color);
+    wall.x = 0;
+    wall.y = 0;
+    wall.img.setPosition(wall.x-wall.w/2, wall.y-wall.h/2);
+    add(wall.img);
+    return wall;
+}
+
+function enemy_init(enemy) {
+    enemy.w = 40;
+    enemy.h = 40;
+    enemy.img = new Rectangle(enemy.w, enemy.h);
+    enemy.img.setColor(Color.red);
+    enemy.img.setPosition(enemy.x-enemy.w/2, enemy.y-enemy.h/2);
+    add(enemy.img);
+    return enemy;
+}
+
+function din_init(din) {
+    din.w = 20;
+    din.h = 20;
+    din.img = new Rectangle(din.w, din.h);
+    din.img.setColor(Color.blue);
+    din.img.setPosition(din.x-din.w/2, din.y-din.h/2);
+    add(din.img);
+    return din;
+}
+
+function buttons_init() {
+    left_button = new Rectangle(40, 40);
+    left_button.setPosition(getWidth()*0.1-left_button.getWidth()/2, getHeight()*0.92-left_button.getHeight()/2);
+    left_button.setColor(Color.grey);
+    add(left_button);
+    top_button = new Rectangle(40, 40);
+    top_button.setPosition(getWidth()*0.25-top_button.getWidth()/2, getHeight()*0.92-top_button.getHeight()/2);
+    top_button.setColor(Color.grey);
+    add(top_button);
+    right_button = new Rectangle(40, 40);
+    right_button.setPosition(getWidth()*0.4-right_button.getWidth()/2, getHeight()*0.92-right_button.getHeight()/2);
+    right_button.setColor(Color.grey);
+    add(right_button);
+}
+ 
+function walls_collide(wall1, wall2) {
+    return rectRect(wall1.x, wall1.y, wall1.w, wall1.h, wall2.x, wall2.y, wall2.w, wall2.h);
+}
+
+function check_wall_collisions(cat, walls) {
+    for (var i = 0; i < walls.length; i++) {
+        var wall = walls[i];
+        if (check_wall_collision(cat, wall)) {
+            wall.counter = min(wall.counter, WALL_BREAKING_FUSE-1);
+            return wall;
+        }
+    }
+    return null;
+}
+
+function check_wall_collision(cat, wall) {
+    return !wall.broken && rectRect(cat.x, cat.y, cat.w, cat.h, wall.x, wall.y, wall.w, wall.h);
+}
+
+function check_enemy_collisions(cat, enemies) {
+    for (var i = 0; i < enemies.length; i++) {
+        if (check_enemy_collision(cat, enemies[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function check_enemy_collision(cat, enemy) {
+    return rectRect(cat.x, cat.y, cat.w, cat.h, enemy.x, enemy.y, enemy.w, enemy.h);
+}
+
+function check_din_collisions(cat, dins) {
+    for (var i = 0; i < dins.length; i++) {
+        if (check_din_collision(cat, dins[i])) {
+            return dins[i];
+        }
+    }
+    return null;
+}
+
+function check_din_collision(cat, din) {
+    return !din.used && rectRect(cat.x, cat.y, cat.w, cat.h, din.x, din.y, din.w, din.h);
+}
+
+function rectRect(r1x, r1y, r1w, r1h, r2x, r2y, r2w, r2h) {
+    r1x -= r1w*0.5;
+    r1y -= r1h*0.5;
+    r2x -= r2w*0.5;
+    r2y -= r2h*0.5;
+    return (r1x + r1w >= r2x && r1x <= r2x + r2w && r1y + r1h >= r2y && r1y <= r2y + r2h);
+  }
+
+function keyPressed(e) {
+    if (e.keyCode == Keyboard.letter('w') && cat.vy == 0 && cat.falling_for == 0) {
+        cat.vy = -18;
+        if (cat.on_spring) {
+            cat.on_spring = false;
+            cat.vy = -25;
+        }
+    }
+    if (e.keyCode == Keyboard.letter('a')) {
+        ap = true;
+    }
+    if (e.keyCode == Keyboard.letter('d')) {
+        dp = true;
+    }
+}
+
+function keyReleased(e) {
+    if (e.keyCode == Keyboard.letter('a')) {
+        ap = false;
+    }
+    if (e.keyCode == Keyboard.letter('d')) {
+        dp = false;
+    }
+}
+
+function mouseClicked(e) {
+    if (state == "menu") {
+        if (menu_play_text.containsPoint(e.getX(), e.getY())) {
+            state = "play_init";
+        }
+    } else if (state == "game_over") {
+        if (game_over_play_text.containsPoint(e.getX(), e.getY())) {
+            state = "play_init";
+        } else if (game_over_menu_text.containsPoint(e.getX(), e.getY())) {
+            state = "menu_init";
+        }
+    } else if (state == "play") {
+        if (left_button.containsPoint(e.getX(),e.getY())) {
+            ap = !ap;
+            if (ap) {
+                dp = false;
+            }
+        } else if (right_button.containsPoint(e.getX(),e.getY())) {
+            dp = !dp;
+            if (dp) {
+                ap = false;
+            }
+        }
+    }
+}
+
+function get_wall_breakable() {
+    if (Randomizer.nextFloat(0, 1) <= CHANCE_OF_BREAKABLE_WALL) {
+        return 1;
+    }
+    return -1;
+}
+
+function min(a, b) {
+    if (a < b) {
+        return a;
+    }
+    return b;
+}
+
+function max(a, b) {
+    return -min(-a, -b);
+}
+
+function constrain(a, b, c) {
+    return min(max(a, b), c);
+}
+
+
+    if (typeof start === 'function') {
+        start();
+    }
+};
+</script>
+
+</body>
+</html>
